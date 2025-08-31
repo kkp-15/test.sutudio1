@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>web忍者の本丸 — 忍アプリ集</title>
+  <meta name="description" content="QR・タイマー・おみくじ・ビンゴ… 忍者の便利で遊べるWebアプリ集。スマホ対応。">
+
+  <!-- OGP（必要に応じて差し替え） -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="web忍者の本丸 — 忍アプリ集">
+  <meta property="og:description" content="QR・タイマー・おみくじ・ビンゴ… 忍者の便利で遊べるWebアプリ集。">
+  <meta property="og:image" content="https://kkpwebninja.com/card.png">
+  <meta property="og:url" content="https://kkpwebninja.com/">
+
+  <link rel="icon" href="favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f1115;         /* 忍者ダーク背景 */
+      --panel:#151922;      /* パネル色 */
+      --ink:#e8ecf2;        /* 本文色 */
+      --muted:#9aa3af;      /* 補助色 */
+      --accent:#00d4b3;     /* 忍者ミント */
+      --accent-2:#7c3aed;   /* 忍者パープル */
+      --radius:20px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --max:1200px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f5f7fb; --panel:#ffffff; --ink:#181a20; --muted:#5b6471; --shadow:0 10px 30px rgba(0,0,0,.08); }
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:var(--bg); color:var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Sans", "Noto Sans JP", "Yu Gothic", "Meiryo", "Helvetica Neue", Arial, sans-serif;
+      line-height:1.65; letter-spacing:.02em;
+    }
+
+    /* ピル型ナビ（半透明） */
+    .nav-wrap{position:sticky; top:12px; z-index:50; display:flex; justify-content:center; padding:8px;}
+    .nav{
+      width:calc(100% - 20px); max-width:var(--max);
+      background:color-mix(in hsl, var(--panel) 85%, transparent);
+      border:1px solid color-mix(in hsl, var(--ink) 10%, transparent);
+      backdrop-filter:saturate(120%) blur(8px);
+      border-radius:999px; box-shadow:var(--shadow);
+      padding:10px 14px; display:flex; align-items:center; gap:18px;
+    }
+    .brand{font-weight:800; letter-spacing:.06em}
+    .nav-links{flex:1; display:flex; justify-content:center; gap:18px; flex-wrap:wrap}
+    .nav a{color:var(--ink); text-decoration:none; opacity:.9; font-weight:700}
+    .cta{
+      margin-left:auto; background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:#fff; padding:10px 16px; border-radius:999px; text-decoration:none; font-weight:800;
+      box-shadow:0 8px 20px rgba(0,212,179,.25);
+    }
+    @media (max-width:680px){ .nav-links{display:none} }
+
+    /* ヒーロー */
+    .hero{max-width:var(--max); margin:56px auto 28px; padding:0 16px; text-align:center}
+    .title{
+      font-family:"Inter",system-ui; font-weight:800;
+      font-size:clamp(36px, 7vw, 80px); line-height:1.1; margin:12px 0 8px;
+      letter-spacing:.01em;
+      background:linear-gradient(135deg, #fff, var(--accent) 35%, var(--accent-2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .lead{color:var(--muted); font-weight:700; margin-bottom:14px}
+    .date{
+      display:inline-block; border:1px dashed color-mix(in hsl, var(--ink) 20%, transparent);
+      padding:8px 14px; border-radius:12px; font-weight:800; letter-spacing:.08em;
+      background:color-mix(in hsl, var(--panel) 80%, transparent);
+    }
+
+    /* 手裏剣ボタン（下スクロール） */
+    .scroll-btn{
+      margin:26px auto 0; width:74px; height:74px; border-radius:50%;
+      display:grid; place-items:center; color:#111;
+      background:#fff; text-decoration:none; box-shadow:var(--shadow);
+      position:relative; overflow:hidden;
+    }
+    .scroll-btn:after{
+      content:""; position:absolute; inset:0; background:radial-gradient(transparent 40%, rgba(0,0,0,.18));
+      opacity:0; transition:.2s;
+    }
+    .scroll-btn:hover:after{opacity:1}
+    .scroll-btn svg{width:28px;height:28px}
+
+    /* アプリカード */
+    .apps{max-width:var(--max); margin:40px auto 80px; padding:0 16px;
+      display:grid; grid-template-columns:repeat(12,1fr); gap:16px;}
+    .card{
+      grid-column: span 6; background:var(--panel); border-radius:var(--radius);
+      padding:16px; box-shadow:var(--shadow); border:1px solid color-mix(in hsl, var(--ink) 10%, transparent);
+      display:flex; flex-direction:column; gap:12px; position:relative; overflow:hidden;
+    }
+    .card h3{margin:0; font-size:1.1rem}
+    .badge{font-size:.75rem; color:#0b0; background:rgba(0,212,179,.15); border:1px solid rgba(0,212,179,.35); padding:4px 8px; border-radius:999px; display:inline-block}
+    .card p{margin:0; color:var(--muted)}
+    .card a.btn{
+      margin-top:auto; align-self:flex-start; text-decoration:none; color:#061; font-weight:800;
+      background:rgba(0,212,179,.16); border:1px solid rgba(0,212,179,.35);
+      padding:8px 12px; border-radius:10px;
+    }
+    .thumb{border-radius:14px; overflow:hidden; aspect-ratio:16/9; background:#000}
+    .thumb img{width:100%; height:100%; object-fit:cover; display:block; opacity:.9}
+
+    .card--xl{grid-column: span 12}
+    @media (max-width:980px){
+      .card{grid-column: span 12}
+    }
+
+    /* 手裏剣・軽い演出 */
+    .shuriken{
+      position:fixed; left:-60px; top:60%; width:52px; aspect-ratio:1;
+      pointer-events:none; filter:drop-shadow(0 10px 20px rgba(0,0,0,.35));
+      transform:translateX(0) rotate(0deg);
+    }
+    .spin{animation:spin .5s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+
+  <!-- ナビ -->
+  <div class="nav-wrap">
+    <nav class="nav" aria-label="メインナビ">
+      <div class="brand">🗡️ web忍者</div>
+      <div class="nav-links">
+        <a href="#apps">忍アプリ</a>
+        <a href="#about">本丸とは</a>
+        <a href="#news">お知らせ</a>
+      </div>
+      <a class="cta" href="#apps">使ってみる</a>
+    </nav>
+  </div>
+
+  <!-- ヒーロー -->
+  <header class="hero">
+    <h1 class="title">忍アプリの本丸</h1>
+    <p class="lead">QR／タイマー／おみくじ／ビンゴ… “軽くてサクッと” 使える忍者道具を集めた巻物。</p>
+    <div class="date">常時公開・スマホ最適化</div>
+
+    <a class="scroll-btn" href="#apps" aria-label="下へスクロール">
+      <!-- 下向き矢印 -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </a>
+  </header>
+
+  <!-- 手裏剣（演出用） -->
+  <img id="shuriken" class="shuriken" alt="手裏剣" 
+       src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><radialGradient id='g' cx='50%' cy='50%' r='50%'><stop offset='0%' stop-color='%23b6f3e7'/><stop offset='100%' stop-color='%2300d4b3'/></radialGradient></defs><path d='M32 6l6 16 16 6-16 6-6 16-6-16-16-6 16-6z' fill='url(%23g)' stroke='%2300bfa2' stroke-width='2' /></svg>">
+
+  <!-- アプリ一覧 -->
+  <section id="apps" class="apps" aria-label="忍アプリ">
+    <!-- 既存のあなたのアプリへ実リンク例（必要に応じて差し替え） -->
+    <article class="card card--xl">
+      <div class="thumb">
+        <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=1600&auto=format&fit=crop" alt="忍者おみくじ">
+      </div>
+      <h3>忍者おみくじ</h3>
+      <span class="badge">占う・共有OK</span>
+      <p>今日の運勢をサクッと。結果をXにシェアして盛り上がるでござる。</p>
+      <a class="btn" href="https://kkp-15.github.io/ninja-omikuji/" target="_blank" rel="noopener">開く</a>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <img src="https://images.unsplash.com/photo-1516826957135-700dedea698c?q=80&w=1200&auto=format&fit=crop" alt="ポモドーロタイマー">
+      </div>
+      <h3>ポモドーロもくもくタイマー</h3>
+      <span class="badge">集中 × BGM</span>
+      <p>25分集中＋5分休憩。BGM再生とループ切替もOK。</p>
+      <a class="btn" href="https://kkp-15.github.io/ninja-mokumoku-time/" target="_blank" rel="noopener">開く</a>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <img src="https://images.unsplash.com/photo-1520975922139-849b6e58c51b?q=80&w=1200&auto=format&fit=crop" alt="QRツール">
+      </div>
+      <h3>QRコード作成と保存</h3>
+      <span class="badge">生成・履歴</span>
+      <p>URLやテキストからQRを作成そのまま保存。履歴管理に便利。</p>
+      <a class="btn" href="https://kkp-15.github.io/ninja-QR/" target="_blank" rel="noopener">開く</a>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1200&auto=format&fit=crop" alt="ビンゴ">
+      </div>
+      <h3>ビンゴ抽選</h3>
+      <span class="badge">イベント向け</span>
+      <p>番号抽選をスマホで。画面共有で盛り上がる。</p>
+      <a class="btn" href="https://bingomachine.kkpwebninja.com/" target="_blank" rel="noopener">開く</a>
+    </article>
+
+    <article class="card">
+      <div class="thumb">
+        <img src="https://images.unsplash.com/photo-1553530979-7ee52e8d7d25?q=80&w=1200&auto=format&fit=crop" alt="みんなの年齢帳">
+      </div>
+      <h3>みんなの年齢帳</h3>
+      <span class="badge">家族管理</span>
+      <p>家族や仲間の年齢を一覧で管理。PWA対応も視野に。</p>
+      <a class="btn" href="https://kkp-15.github.io/ninja-nenrei/" target="_blank" rel="noopener">開く</a>
+    </article>
+  </section>
+
+  <!-- 追記セクション（任意） -->
+  <main id="about" style="max-width:var(--max);margin:0 auto 100px;padding:0 16px">
+    <h2>本丸とは</h2>
+    <p>“速い・軽い・わかりやすい” をモットーに、日常で使えるWeb忍具を公開しています。広告・アフィリエイトは分かりやすく、信用第一でござる。</p>
+
+    <h2 id="news">お知らせ</h2>
+    <p>Xで更新を告知します。ぜひフォローを。</p>
+  </main>
+
+  <!-- フッター（ユーザー標準のフッター構成） -->
+  <footer style="max-width:var(--max);margin:0 auto 60px;padding:0 16px;text-align:center;color:var(--muted)">
+    <div id="footer">
+      X <a href="https://x.com/kkp_webninja" target="_blank">@kkp_webninja</a> <br>
+      🏯 <a href="https://kkpwebninja.com" target="_blank">web忍者の本丸</a><br>
+    </div>
+  </footer>
+
+  <script>
+    // スムーススクロール
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href'); const el = document.querySelector(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth'}) }
+      });
+    });
+
+    // 手裏剣：CTAやスクロールボタンを押したときにビューン
+    function throwShuriken(){
+      const s = document.getElementById('shuriken');
+      s.style.transition = 'none';
+      s.style.transform = 'translateX(0) rotate(0deg)';
+      s.classList.add('spin');
+      requestAnimationFrame(()=>{
+        s.style.transition = 'transform .9s cubic-bezier(.2,.7,.2,1)';
+        s.style.transform = 'translateX(120vw) rotate(600deg)';
+      });
+      setTimeout(()=>{ s.classList.remove('spin') }, 950);
+    }
+    document.querySelectorAll('.cta,.scroll-btn,.btn').forEach(el=>{
+      el.addEventListener('click', ()=> throwShuriken());
+    });
+
+    // Google Analytics（必要ならIDを有効化）
+    const GA_ID = 'G-2LM85GJN0L'; // ←あなたの測定ID
+    if (GA_ID){
+      const s1 = document.createElement('script');
+      s1.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+      s1.async = true; document.head.appendChild(s1);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('js', new Date()); gtag('config', GA_ID);
+    }
+  </script>
+</body>
+</html>
