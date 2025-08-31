@@ -1,156 +1,356 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RiRi studio — 作業用BGMまとめ</title>
-<meta name="description" content="RiRi studio の作業用BGMまとめ。全35曲をサムネクリックでその場再生できます。">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RiRi studio — 作業用BGM & ポモドーロ</title>
+  <meta name="description" content="RiRi studio の作業用BGMまとめ。サムネクリックでその場再生＆ポモドーロ・タイムで集中をサポート。">
 
-<style>
-:root{
-  --bg:#fdfcfb; --panel:#ffffff; --ink:#222; --muted:#666;
-  --accent:#ff6b9f; --accent2:#f4b86a;
-  --radius:16px; --max:1200px; --shadow:0 6px 20px rgba(0,0,0,.08);
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans JP","Yu Gothic",Meiryo,Arial,sans-serif}
-header{background:linear-gradient(135deg,#fbe0d8 0%,#ffd6e8 40%,#fff 100%);border-bottom:1px solid #eee}
-.header-inner{max-width:var(--max);margin:0 auto;padding:22px 12px;text-align:center}
-h1{margin:0;color:var(--accent);font-size:clamp(22px,4.8vw,34px)}
-p.lead{margin:6px 0 0;color:var(--muted)}
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" />
 
-.grid{max-width:var(--max);margin:0 auto;padding:14px;display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.card{background:var(--panel);border:1px solid #eee;border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
-.thumb{position:relative;aspect-ratio:16/9;cursor:pointer;background:#000}
-.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.play{position:absolute;bottom:8px;left:8px;background:rgba(255,255,255,.9);
-  color:var(--accent);padding:4px 10px;border-radius:999px;font-weight:800;font-size:.8rem}
-.meta{padding:10px}
-.meta h3{margin:0;font-size:1rem;color:var(--accent)}
+  <!-- OGP（あなたのポモドーロ設定を継承） -->
+  <meta property="og:title" content="ポモドーロ タイム 🌴 - 癒しBGMと集中タイマー" />
+  <meta property="og:description" content="癒しのBGMと25分集中＋5分休憩のタイマーで、もくもく作業をサポート！" />
+  <meta property="og:image" content="https://riri8.kkpwebninja.com/image/card.png" />
+  <meta property="og:url" content="https://riri8.kkpwebninja.com/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-.more-wrap{display:flex;justify-content:center;padding:16px}
-.more{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:0;
-  padding:12px 18px;border-radius:999px;font-weight:800;cursor:pointer;box-shadow:var(--shadow)}
-.more:disabled{opacity:.5;cursor:not-allowed}
+  <!-- Google Analytics（あなたのIDを継承） -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-2LM85GJN0L"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-2LM85GJN0L');
+  </script>
 
-footer{max-width:var(--max);margin:24px auto 60px;padding:0 16px;text-align:center;color:var(--muted)}
-footer a{color:var(--accent);text-decoration:none}
-</style>
+  <style>
+    :root{
+      --bg:#fdfcfb; --panel:#ffffff; --ink:#222; --muted:#666;
+      --accent:#ff6b9f; --accent2:#f4b86a;
+      --radius:16px; --max:1200px; --shadow:0 6px 20px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans","Noto Sans JP","Yu Gothic",Meiryo,Arial,sans-serif}
+
+    /* ヘッダー */
+    header.hero{
+      background:linear-gradient(135deg,#fbe0d8 0%,#ffd6e8 40%,#fff 100%);
+      border-bottom:1px solid #eee;
+    }
+    .hero-inner{max-width:var(--max);margin:0 auto;padding:22px 12px;text-align:center}
+    .hero-inner h1{margin:0;color:var(--accent);font-size:clamp(22px,4.8vw,34px)}
+    .hero-inner p.lead{margin:6px 0 0;color:var(--muted)}
+
+    /* グリッド（BGMカード） */
+    .grid{max-width:var(--max);margin:0 auto;padding:14px;display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+    .card{background:var(--panel);border:1px solid #eee;border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+    .thumb{position:relative;aspect-ratio:16/9;cursor:pointer;background:#000}
+    .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .play{position:absolute;bottom:8px;left:8px;background:rgba(255,255,255,.9);
+      color:var(--accent);padding:4px 10px;border-radius:999px;font-weight:800;font-size:.8rem}
+    .meta{padding:10px}
+    .meta h3{margin:0;font-size:1rem;color:var(--accent)}
+
+    .more-wrap{display:flex;justify-content:center;padding:16px}
+    .more{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:0;
+      padding:12px 18px;border-radius:999px;font-weight:800;cursor:pointer;box-shadow:var(--shadow)}
+    .more:disabled{opacity:.5;cursor:not-allowed}
+
+    /* ポモドーロ */
+    section.pomodoro{max-width:var(--max);margin:20px auto 60px;padding:0 14px}
+    .pom-card{
+      border-radius:18px; overflow:hidden; box-shadow:var(--shadow);
+      border:1px solid #e8e8e8;
+    }
+    .pom-head{
+      padding:18px; text-align:center; border-bottom:1px solid #eee;
+      background: linear-gradient(to right, #e0f7f6, #ffd6e8);
+    }
+    .pom-head h2{margin:0; font-size:1.4rem; color:#0d4b51}
+    .pom-body{padding:16px; background:#fff; display:grid; gap:14px}
+    .desc{
+      max-width:780px; margin:0 auto; background:#ffffffcc; padding:12px 14px;
+      border-radius:12px; font-size:.95rem; color:#0e3a3f;
+    }
+    .controls{display:flex; flex-wrap:wrap; gap:10px; justify-content:center}
+    .controls button, .controls select{
+      font-size:1rem; padding:.6rem 1rem; border:none; border-radius:1rem; cursor:pointer;
+      background-color:#b2dfdb; color:#004d40; transition:background-color .2s, transform .05s;
+    }
+    .controls button:hover, .controls select:hover{ background-color:#80cbc4 }
+    .timer-area{ text-align:center }
+    #timer{ font-size:3rem; margin:.2rem 0 }
+    #message{ font-size:1.05rem; font-weight:bold; min-height:1.5em; color:#0e3a3f }
+
+    iframe#bgmPlayer{
+      width:100%; max-width:720px; height:405px; display:block;
+      margin:12px auto 0; border:none; border-radius:14px;
+    }
+
+    /* フッター（SNSボタン継承） */
+    .footer-links{margin-top:18px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
+    .footer-links a{
+      display:inline-block; padding:.5rem 1rem; border-radius:1rem; text-decoration:none;
+      box-shadow:0 2px 6px rgba(0,0,0,.2); color:#fff; transition:.2s;
+    }
+    .footer-links a:hover{ transform:scale(1.05) }
+    .youtube-btn{ background:#ff4444 }
+    .x-btn{ background:#000 }
+    .insta-btn{ background:#e1306c }
+
+    /* サイトフッター */
+    footer.site{max-width:var(--max);margin:24px auto 60px;padding:0 16px;text-align:center;color:var(--muted)}
+    footer.site a{color:var(--accent);text-decoration:none}
+
+    /* 背景の雰囲気（作業/休憩でbodyに反映） */
+    body.work { background: linear-gradient(to bottom, #fdfcfb, #fff) }
+    body.break { background: linear-gradient(to bottom, #f0f7ff, #fff) }
+  </style>
 </head>
-<body>
 
-<header>
-  <div class="header-inner">
-    <h1>🐚 RiRi studio 作業用BGM</h1>
-    <p class="lead">サムネをクリックすると、その場で再生されます。</p>
-  </div>
-</header>
+<body class="work">
+  <!-- ヒーロー -->
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>🐚 RiRi studio 作業用BGM</h1>
+      <p class="lead">サムネをクリックでその場再生。下のポモドーロ・タイムで、25分集中＋5分休憩をループ！</p>
+    </div>
+  </header>
 
-<section>
-  <div class="grid" id="videoGrid"></div>
-  <div class="more-wrap">
-    <button class="more" id="moreBtn">もっと見る</button>
-  </div>
-</section>
+  <!-- BGM グリッド（もっと見る） -->
+  <section aria-label="BGM一覧">
+    <div class="grid" id="videoGrid"></div>
+    <div class="more-wrap">
+      <button class="more" id="moreBtn">もっと見る</button>
+    </div>
+  </section>
 
-<footer>
-  X <a href="https://x.com/kkp_webninja" target="_blank" rel="noopener">@kkp_webninja</a><br>
-  🏯 <a href="https://kkpwebninja.com" target="_blank" rel="noopener">web忍者の本丸</a><br>
-</footer>
-
-<script>
-const videos = [
-  {id:"xvcXZbvYf0s", title:"Morning Glow — 朝日に溶けるピアノ"},
-  {id:"W0lUBVcvJiw", title:"Ocean Breeze — 海風のLo-fi"},
-  {id:"nlzxWWjB-ik", title:"Night Vibes — 夜を彩るChill Beat"},
-  {id:"Fdp4u_SUjKE", title:"City Lights — 都会の灯りと音"},
-  {id:"o-wCYm_Pm6A", title:"Rainy Cafe — 雨音カフェBGM"},
-  {id:"HoljfuP1POQ", title:"Sunset Chill — 夕暮れのチルアウト"},
-  {id:"rWyX16RTMgk", title:"Midnight Flow — 深夜の集中サウンド"},
-  {id:"lY3x33Q9p7Y", title:"Soft Waves — 波音に癒されて"},
-  {id:"zoKoxAws_qg", title:"Dreamscape — 夢幻の旋律"},
-  {id:"Y5mkp8pRuug", title:"Study Energy — 勉強がはかどるBGM"},
-  {id:"BYra5__dZt8", title:"Starry Night — 星空の下で"},
-  {id:"HmYecNjo-YU", title:"Forest Echo — 森のささやき"},
-  {id:"QLDlN5QeFJY", title:"Coffee Break — カフェ気分で作業"},
-  {id:"_ES-qbX3PZw", title:"Chill Horizon — 穏やかな地平線"},
-  {id:"gum_BK-TaNc", title:"Gentle Wind — そよ風の調べ"},
-  {id:"aR2wgXX1LKw", title:"Piano Healing — 癒しのピアノ"},
-  {id:"8YhHNFx6IG4", title:"Focus Beats — 集中するLo-fi"},
-  {id:"fdvMXXki5aI", title:"Morning Rain — 雨上がりの朝"},
-  {id:"_daHDiMOhUg", title:"Calm Mind — 心落ち着く音"},
-  {id:"JHgbgOtCh6o", title:"Ocean Sunset — 海に沈む夕日"},
-  {id:"EuEzwLm1rVg", title:"Energy Flow — 作業効率UPサウンド"},
-  {id:"sO3IO8ITQbk", title:"Relax Vibes — ほっと一息Lo-fi"},
-  {id:"7Col7jbU58I", title:"Moonlight — 月明かりの旋律"},
-  {id:"HoljfuP1POQ", title:"Evening Glow — ゆったり夕暮れ"},
-  {id:"jwls6XgOqeI", title:"Warm Memories — あたたかな思い出"},
-  {id:"pvB3cN41kLg", title:"Chill Traveler — 旅する気分のBGM"},
-  {id:"-0BGU5JNgx4", title:"Pure Relax — 穏やかな休息"},
-  {id:"tn8xWxJlTHk", title:"Breeze Flow — 風に揺れる旋律"},
-  {id:"IUtaYi5tc7Q", title:"Focus Piano — ピアノで集中"},
-  {id:"ftyC1THMVPU", title:"Night Cafe — 夜のカフェで作業"},
-  {id:"1CaYmGW0JRk", title:"Morning Drive — 爽快な朝ドライブ"},
-  {id:"PX9qcl3O4ko", title:"Chill Stream — 水音と癒し"},
-  {id:"txOSbA_gdAM", title:"Deep Focus — 深く集中する時間"},
-  {id:"ireQV7GrQzk", title:"Healing Guitar — 癒しのアコースティック"},
-  {id:"KbY08F0C8Wg", title:"Sunrise Glow — 朝日のエネルギー"}
-];
-
-// 初期表示数と追加表示数
-const CHUNK = 12;
-let shown = 0;
-
-const grid = document.getElementById("videoGrid");
-const moreBtn = document.getElementById("moreBtn");
-
-function renderChunk(){
-  const slice = videos.slice(shown, shown + CHUNK);
-  slice.forEach(v=>{
-    const card=document.createElement("article");
-    card.className="card";
-    card.innerHTML = `
-      <div class="thumb" data-yt="${v.id}">
-        <img src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg" alt="${v.title}">
-        <span class="play">▶ 再生</span>
+  <!-- ポモドーロ（あなたの仕様を統合） -->
+  <section class="pomodoro" aria-label="ポモドーロ・タイム">
+    <div class="pom-card">
+      <div class="pom-head">
+        <h2>RIRI 🌺 ポモドーロ・タイム 🌴</h2>
       </div>
-      <div class="meta"><h3>${v.title}</h3></div>
-    `;
-    grid.appendChild(card);
-  });
-  shown += slice.length;
-  updateMore();
-}
+      <div class="pom-body">
+        <div class="desc">
+          <strong>ポモドーロ・テクニックとは？</strong><br>
+          25分集中＋5分休憩を1セットとして繰り返す、シンプルで効果的な時間管理法です。<br>
+          このセクションでは、集中タイマーと癒しのBGMで「もくもく作業」をサポートします🎺
+        </div>
 
-function updateMore(){
-  const remain = Math.max(0, videos.length - shown);
-  if(remain === 0){
-    moreBtn.textContent = "すべて表示しました";
-    moreBtn.disabled = true;
-  } else {
-    moreBtn.textContent = `もっと見る（残り ${remain}）`;
-  }
-}
+        <div class="controls">
+          <label for="musicSelect">🎶 曲を選ぶ：</label>
+          <select id="musicSelect"></select>
 
-grid.addEventListener("click", e=>{
-  const box = e.target.closest(".thumb");
-  if(!box) return;
-  const id = box.dataset.yt;
-  const wrap = document.createElement("div");
-  wrap.style.position="relative"; wrap.style.aspectRatio="16/9";
-  wrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:14px;"></iframe>`;
-  box.replaceWith(wrap);
-});
+          <button onclick="setMode(25,5)">⏱️ 25分/5分</button>
+          <button onclick="setMode(50,10)">⏱️ 50分/10分</button>
+        </div>
 
-moreBtn.addEventListener("click", renderChunk);
+        <div class="timer-area">
+          <div id="timer">25:00</div>
+          <div id="message"></div>
+          <div class="controls">
+            <button onclick="startLoop()">スタート</button>
+            <button onclick="resetLoop()">リセット</button>
+          </div>
+        </div>
 
-// 初期描画
-renderChunk();
-</script>
+        <iframe id="bgmPlayer" allow="autoplay"></iframe>
 
+        <div class="footer-links">
+          <a class="youtube-btn" href="https://youtube.com/@riri8bgm" target="_blank" rel="noopener">YouTube</a>
+          <a class="x-btn" href="https://x.com/riri8bgm" target="_blank" rel="noopener">X</a>
+          <a class="insta-btn" href="https://instagram.com/riri8bgm" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- サイト フッター -->
+  <footer class="site">
+    X <a href="https://x.com/kkp_webninja" target="_blank" rel="noopener">@kkp_webninja</a><br>
+    🏯 <a href="https://kkpwebninja.com" target="_blank" rel="noopener">web忍者の本丸</a><br>
+  </footer>
+
+  <script>
+    /* ========== BGM データ（IDと雰囲気タイトル） ========== */
+    const videos = [
+      {id:"xvcXZbvYf0s", title:"Morning Glow — 朝日に溶けるピアノ"},
+      {id:"W0lUBVcvJiw", title:"Ocean Breeze — 海風のLo-fi"},
+      {id:"nlzxWWjB-ik", title:"Night Vibes — 夜を彩るChill Beat"},
+      {id:"Fdp4u_SUjKE", title:"City Lights — 都会の灯りと音"},
+      {id:"o-wCYm_Pm6A", title:"Rainy Cafe — 雨音カフェBGM"},
+      {id:"HoljfuP1POQ", title:"Sunset Chill — 夕暮れのチルアウト"},
+      {id:"rWyX16RTMgk", title:"Midnight Flow — 深夜の集中サウンド"},
+      {id:"lY3x33Q9p7Y", title:"Soft Waves — 波音に癒されて"},
+      {id:"zoKoxAws_qg", title:"Dreamscape — 夢幻の旋律"},
+      {id:"Y5mkp8pRuug", title:"Study Energy — 勉強がはかどるBGM"},
+      {id:"BYra5__dZt8", title:"Starry Night — 星空の下で"},
+      {id:"HmYecNjo-YU", title:"Forest Echo — 森のささやき"},
+      {id:"QLDlN5QeFJY", title:"Coffee Break — カフェ気分で作業"},
+      {id:"_ES-qbX3PZw", title:"Chill Horizon — 穏やかな地平線"},
+      {id:"gum_BK-TaNc", title:"Gentle Wind — そよ風の調べ"},
+      {id:"aR2wgXX1LKw", title:"Piano Healing — 癒しのピアノ"},
+      {id:"8YhHNFx6IG4", title:"Focus Beats — 集中するLo-fi"},
+      {id:"fdvMXXki5aI", title:"Morning Rain — 雨上がりの朝"},
+      {id:"_daHDiMOhUg", title:"Calm Mind — 心落ち着く音"},
+      {id:"JHgbgOtCh6o", title:"Ocean Sunset — 海に沈む夕日"},
+      {id:"EuEzwLm1rVg", title:"Energy Flow — 作業効率UPサウンド"},
+      {id:"sO3IO8ITQbk", title:"Relax Vibes — ほっと一息Lo-fi"},
+      {id:"7Col7jbU58I", title:"Moonlight — 月明かりの旋律"},
+      {id:"HoljfuP1POQ", title:"Evening Glow — ゆったり夕暮れ"},
+      {id:"jwls6XgOqeI", title:"Warm Memories — あたたかな思い出"},
+      {id:"pvB3cN41kLg", title:"Chill Traveler — 旅する気分のBGM"},
+      {id:"-0BGU5JNgx4", title:"Pure Relax — 穏やかな休息"},
+      {id:"tn8xWxJlTHk", title:"Breeze Flow — 風に揺れる旋律"},
+      {id:"IUtaYi5tc7Q", title:"Focus Piano — ピアノで集中"},
+      {id:"ftyC1THMVPU", title:"Night Cafe — 夜のカフェで作業"},
+      {id:"1CaYmGW0JRk", title:"Morning Drive — 爽快な朝ドライブ"},
+      {id:"PX9qcl3O4ko", title:"Chill Stream — 水音と癒し"},
+      {id:"txOSbA_gdAM", title:"Deep Focus — 深く集中する時間"},
+      {id:"ireQV7GrQzk", title:"Healing Guitar — 癒しのアコースティック"},
+      {id:"KbY08F0C8Wg", title:"Sunrise Glow — 朝日のエネルギー"}
+    ];
+
+    /* ========== BGMグリッド（12件ずつ追加表示） ========== */
+    const CHUNK = 12;
+    let shown = 0;
+    const grid = document.getElementById("videoGrid");
+    const moreBtn = document.getElementById("moreBtn");
+
+    function renderChunk(){
+      const slice = videos.slice(shown, shown + CHUNK);
+      slice.forEach(v=>{
+        const card=document.createElement("article");
+        card.className="card";
+        card.innerHTML = `
+          <div class="thumb" data-yt="${v.id}">
+            <img src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg" alt="${v.title}">
+            <span class="play">▶ 再生</span>
+          </div>
+          <div class="meta"><h3>${v.title}</h3></div>
+        `;
+        grid.appendChild(card);
+      });
+      shown += slice.length;
+      updateMore();
+    }
+    function updateMore(){
+      const remain = Math.max(0, videos.length - shown);
+      if(remain === 0){
+        moreBtn.textContent = "すべて表示しました";
+        moreBtn.disabled = true;
+      } else {
+        moreBtn.textContent = `もっと見る（残り ${remain}）`;
+      }
+    }
+    grid.addEventListener("click", e=>{
+      const box = e.target.closest(".thumb");
+      if(!box) return;
+      const id = box.dataset.yt;
+      const wrap = document.createElement("div");
+      wrap.style.position="relative"; wrap.style.aspectRatio="16/9";
+      wrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:14px;"></iframe>`;
+      box.replaceWith(wrap);
+    });
+    moreBtn.addEventListener("click", renderChunk);
+    renderChunk(); // 初期描画
+
+    /* ========== ポモドーロ（あなたのロジックを統合） ========== */
+    const selectEl = document.getElementById("musicSelect");
+    // セレクトに動画を流し込み
+    videos.forEach(v=>{
+      const opt = document.createElement("option");
+      opt.value = v.id; opt.textContent = v.title;
+      selectEl.appendChild(opt);
+    });
+
+    let timer;
+    let time = 1500;           // 25 * 60
+    let running = false;
+    let isWork = true;
+    let workDuration = 1500;   // 秒
+    let breakDuration = 300;   // 秒
+
+    function updateDisplay(){
+      const m = Math.floor(time / 60);
+      const s = time % 60;
+      document.getElementById("timer").textContent =
+        `${m.toString().padStart(2,"0")}:${s.toString().padStart(2,"0")}`;
+    }
+
+    function updateBGM(){
+      const videoId = selectEl.value;
+      const iframe = document.getElementById("bgmPlayer");
+      // ユーザー操作後の再生を想定（ブラウザの自動再生制限対策）
+      if (isWork && running) {
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&loop=1&playlist=${videoId}`;
+      }
+    }
+
+    function startLoop(){
+      if (running) return;
+      running = true;
+      isWork = true;
+      startPhase();
+    }
+
+    function setMode(workMin, breakMin){
+      if (running) return;
+      workDuration = workMin * 60;
+      breakDuration = breakMin * 60;
+      time = workDuration;
+      updateDisplay();
+    }
+
+    function startPhase(){
+      clearInterval(timer);
+      document.body.className = isWork ? "work" : "break";
+      time = isWork ? workDuration : breakDuration;
+      updateDisplay();
+
+      document.getElementById("message").textContent = isWork
+        ? `🌺 集中タイム開始！次は${breakDuration/60}分の休憩です 🏝️`
+        : `🏖️ 休憩スタート！次は${workDuration/60}分の作業タイムです 🌊`;
+
+      updateBGM();
+
+      timer = setInterval(()=>{
+        if (time > 0){
+          time--; updateDisplay();
+        } else {
+          isWork = !isWork;
+          if (!isWork) document.getElementById("bgmPlayer").src = ""; // 休憩で一旦停止
+          startPhase();
+        }
+      }, 1000);
+    }
+
+    function resetLoop(){
+      clearInterval(timer);
+      time = workDuration;
+      running = false;
+      isWork = true;
+      updateDisplay();
+      document.getElementById("bgmPlayer").src = "";
+      document.body.className = "work";
+      document.getElementById("message").textContent = "";
+    }
+
+    // 公開
+    window.setMode = setMode;
+    window.startLoop = startLoop;
+    window.resetLoop = resetLoop;
+    window.updateBGM = updateBGM;
+
+    updateDisplay();
+  </script>
 </body>
 </html>
